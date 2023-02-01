@@ -1,0 +1,14 @@
+{
+    "name": "lvlup-data-export",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "Ozelot",
+    "license": "MIT",
+    "bin": {
+        "execute": "index.js"
+    },
+    "dependencies": {
+        "chalk": "^4.1.2",
+        "readline-sync": "^1.4.10"
+    }
+}
