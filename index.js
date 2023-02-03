@@ -18,7 +18,10 @@ process.emitWarning = () => false;
     fs.mkdir(dir).catch(err => false);
 
     const mainInfo = await getMainInfo(token);
-    if(!mainInfo.uid) return console.error(chalk.redBright("Authorization failed!"), mainInfo);
+    if(!mainInfo.uid) {
+        console.error(chalk.redBright("Authorization failed!"), mainInfo);
+        return rl.question();
+    }
     else console.log(chalk.gray("Connected successfully."));
 
     console.log(chalk.gray("Exporting data..."));
