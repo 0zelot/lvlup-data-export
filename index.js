@@ -11,12 +11,17 @@ console.clear();
 
 const token = rl.question(`${chalk.cyanBright("Enter your auth token: ")}`, {hideEchoBack: true});
 
+process.emitWarning = () => false;
+
 (async () => {
 
     fs.mkdir(dir).catch(err => false);
 
     const mainInfo = await getMainInfo(token);
     if(!mainInfo.uid) return console.error(chalk.redBright("Authorization failed!"), mainInfo);
+    else console.log(chalk.gray("Connected successfully."));
+
+    console.log(chalk.gray("Exporting data..."));
 
     fs.writeFile(`${dir}/me.json`, JSON.stringify(mainInfo, null, 2));
     fs.writeFile(`${dir}/logs.json`, JSON.stringify(await getAccountLogs(token), null, 2));
@@ -34,5 +39,7 @@ const token = rl.question(`${chalk.cyanBright("Enter your auth token: ")}`, {hid
         fs.writeFile(`${dir}/tickets/${tickets.items[ticket].id}.json`, JSON.stringify(await getTicketInfo(token, tickets.items[ticket].id), null, 2));
 
     console.log(chalk.greenBright("Data exported successfully."));
+
+    rl.question();
     
 })();
